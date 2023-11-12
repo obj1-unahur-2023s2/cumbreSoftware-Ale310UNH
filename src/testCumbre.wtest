@@ -1,0 +1,70 @@
+import cumbre.*
+import participantes.*
+import paises.*
+import conocimientos.*
+
+describe "primer ejemplo" {
+	const argentina = new Pais()
+	const brasil = new Pais()
+	const colombia = new Pais()
+	const coreaDelNorte = new Pais()
+	const coreaDelSur = new Pais()
+	
+	const juana = new Programador(pais = argentina, conocimientos = [programacionBasica, css, html], comitsHechos = 600)
+	const lucia = new Programador(pais = brasil, conocimientos = [programacionBasica, basesDeDatos], comitsHechos = 800)
+	const mariana = new Especialista(pais = argentina, conocimientos = [programacionBasica, instalacionLinux, objetos, disenioConObjetos], comitsHechos = 200)
+	const susana = new Especialista(pais = colombia, conocimientos = [programacionBasica, objetos], comitsHechos = 1500)
+	
+	method initialize() {
+		cumbre.ingresarPersona(juana)
+		cumbre.ingresarPersona(lucia)
+		cumbre.ingresarPersona(mariana)
+		cumbre.agregarPaisesAuspiciantes(#{argentina, colombia, coreaDelNorte})
+		coreaDelNorte.registrarConflictoCon(coreaDelSur)
+		coreaDelSur.registrarConflictoCon(coreaDelNorte)
+	}
+	
+	test "Si se registra a Juana, Lucía y Mariana en la cumbre, entonces tenemos
+            paises participantes son: Argentina y Brasil" {
+		assert.equals(cumbre.paisesDeLosParticipantes(), #{argentina, brasil})
+	}
+	
+	test "Si se registra a Juana, Lucía y Mariana en la cumbre tenemos 2 participantes de Argentina" {
+		assert.equals(cumbre.cantidaDeParticipantesDe(argentina), 2)
+	}
+	
+	test "Si se registra a Juana, Lucía y Mariana en la cumbre tenemos una participante de Brasil" {
+		assert.equals(cumbre.cantidaDeParticipantesDe(brasil), 1)
+	}
+	
+	test "pais con mas participantes es Argentina" {
+		assert.equals(cumbre.paisConMasParticipantes() , argentina)
+	}
+	
+	test "la cumbre es relevante" {
+		assert.that(cumbre.esRelevante())
+	}
+	
+	test "Si agregamos a Susana, ahora los países con participantes son Argentina, Brasil y Colombia" {
+		cumbre.ingresarPersona(susana)
+		assert.equals(cumbre.paisesDeLosParticipantes(), #{argentina, brasil, colombia})
+	}
+	
+	test "Si agregamos a Susana, el pais con mas participantes sigue siendo Argentina" {
+		cumbre.ingresarPersona(susana)
+		assert.equals(cumbre.paisConMasParticipantes(), argentina)
+	}
+	
+	test "ahora la cumbre no es relevante (porque Susana no es capa)" {
+		cumbre.ingresarPersona(susana)
+		assert.notThat(cumbre.esRelevante())
+	}
+	
+	test "corea del sul es conflictivo para la cumbre" {
+		assert.that(cumbre.esConflictivo(coreaDelSur))
+	}
+	
+	test "lucia es la unica extranjera" {
+		assert.that(cumbre.participantesExtranjeros().contains(lucia))
+	}
+}
