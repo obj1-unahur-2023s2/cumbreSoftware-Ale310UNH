@@ -9,7 +9,7 @@ class Participante {
 	
 	method comitsHechos() = comitsHechos
 	
-	method esCape() = false
+	method esCape()
 	
 	method cantidadDeConocimientos() = conocimientos.size()
 	

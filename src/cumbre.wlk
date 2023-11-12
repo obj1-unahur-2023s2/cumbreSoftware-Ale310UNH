@@ -30,11 +30,8 @@ object cumbre {
 	method puedeIngresar(unaPersona) = unaPersona.cumpleCondicionesDeIngresoA(self) and not self.tieneRestingidoElAcceso(unaPersona) and self.cumpleSegundaCondicion(unaPersona)
 	
 	method cumpleSegundaCondicion(unaPersona) {return
-		if(paisesAuspiciantes.contains(unaPersona.pais())) 
-			true
-		
-		else 
-		    not self.paisesDeLosParticipantes().contains(unaPersona.pais())
+		paisesAuspiciantes.contains(unaPersona.pais())
+        or not self.paisesDeLosParticipantes().contains(unaPersona.pais())
 	}
 	
 	method tieneRestingidoElAcceso(unaPersona) = paisesAuspiciantes.any({p => unaPersona.esDePaisConflictivoCon(p)})
