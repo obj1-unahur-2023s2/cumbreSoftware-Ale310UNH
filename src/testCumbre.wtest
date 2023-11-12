@@ -16,10 +16,10 @@ describe "primer ejemplo" {
 	const susana = new Especialista(pais = colombia, conocimientos = [programacionBasica, objetos], comitsHechos = 1500)
 	
 	method initialize() {
+		cumbre.agregarPaisesAuspiciantes(#{argentina, colombia, coreaDelNorte})
 		cumbre.ingresarPersona(juana)
 		cumbre.ingresarPersona(lucia)
 		cumbre.ingresarPersona(mariana)
-		cumbre.agregarPaisesAuspiciantes(#{argentina, colombia, coreaDelNorte})
 		coreaDelNorte.registrarConflictoCon(coreaDelSur)
 		coreaDelSur.registrarConflictoCon(coreaDelNorte)
 	}

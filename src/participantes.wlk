@@ -36,7 +36,7 @@ class Programador inherits Participante {
 	
 	override method esCape() = comitsHechos > 500
 	
-	override method cumpleCondicionesDeIngresoA(unaCumbre) = super(unaCumbre) and comitsHechos > unaCumbre.cantidadDeCommitsNecesariosParaIngresar()
+	override method cumpleCondicionesDeIngresoA(unaCumbre) = super(unaCumbre) and comitsHechos >= unaCumbre.cantidadDeCommitsNecesariosParaIngresar()
 	
 	override method hacerActividad(unaActividad) {
 		super(unaActividad)
@@ -48,7 +48,7 @@ class Especialista inherits Participante {
 	
 	override method esCape() = self.cantidadDeConocimientos() > 2
 	
-	override method cumpleCondicionesDeIngresoA(unaCumbre) = super(unaCumbre) and comitsHechos > (unaCumbre.cantidadDeCommitsNecesariosParaIngresar() - 100) and conocimientos.contains(objetos)
+	override method cumpleCondicionesDeIngresoA(unaCumbre) = super(unaCumbre) and comitsHechos >= (unaCumbre.cantidadDeCommitsNecesariosParaIngresar() - 100) and conocimientos.contains(objetos)
 }
 
 class Gerente inherits Participante {
